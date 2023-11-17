@@ -2,35 +2,34 @@ import promptSync from "prompt-sync";
 const prompt = promptSync();
 
 const kidsMovies = [
-  "Frozen",
-  "Minions",
-  "Aladdin",
-  "Cars",
-  "Moana",
-  "Tarzan",
-  "Tangled",
-  "Cinderella",
-  "Pinocchio",
-  "Madagascar",
+  "frozen",
+  "minions",
+  "aladdin",
+  "cars",
+  "moana",
+  "tarzan",
+  "tangled",
+  "cinderella",
+  "pinocchio",
+  "madagascar",
 ];
 
 let secretWord = "";
 
 function secretWords() {
   // for (let i = 0; i < kidsMovies.length; i++) {
-    const randomIndex = Math.floor(Math.random() * kidsMovies.length);
-    secretWord = kidsMovies[randomIndex];
-  }
+  const randomIndex = Math.floor(Math.random() * kidsMovies.length);
+  secretWord = kidsMovies[randomIndex];
+}
 // }
 
 let correctLetters = [];
-let letter;
+// let letter;
 let guesses = 0;
 
 secretWords();
 
 function checkLetters(letter) {
-
   if (secretWord.includes(letter)) {
     correctLetters.push(letter);
     return true;
@@ -38,13 +37,12 @@ function checkLetters(letter) {
     guesses++;
     return false;
 
-  //   return correctLetters;
-  // } else {
-  //   guesses++;
-  //   return shrugman();
+    //   return correctLetters;
+    // } else {
+    //   guesses++;
+    //   return shrugman();
   }
-};
-
+}
 
 function createWord() {
   const characters = secretWord.split("");
@@ -59,7 +57,6 @@ function createWord() {
     .join("");
 }
 
-
 function shrugman() {
   let shrugman = "¯\\_(:/)_/¯".split("").slice(0, guesses).join("");
   return shrugman;
@@ -73,31 +70,44 @@ function shrugman() {
   //       shrugman.push(removeLetter);
   //     }
   //     return shrugman.join("");
-    }
+}
 
 function playGame() {
-console.clear();
-let choose = prompt(`Choose a category: `);
+  console.clear();
+  console.log("Welcome! Please guess the title of the kids' movie.");
+  // let choose = prompt(`Choose a category: `);
 
-while (correctLetters.length < secretWord.length) {
-// while (correctLetters < secretWord) {
+  const totalAllowedAttempts = 10;
+  let attempts = 0;
+
+  while (
+    correctLetters.length < secretWord.length &&
+    attempts < totalAllowedAttempts
+  ) {
+    // while (correctLetters < secretWord) {
     // console.log(secretWord);
 
-let fillingBlanks = createWord();
-console.log(fillingBlanks);
+    let fillingBlanks = createWord();
+    console.log(fillingBlanks);
 
-let guessALetter = prompt(`Guess a letter: `);
+    let guessALetter = prompt(`Guess a letter: `).toLowerCase();
 
-if (checkLetters(guessALetter)) {
-  console.log(`${guessALetter}`);
-} else {
-  console.log(shrugman());
+    if (checkLetters(guessALetter)) {
+      console.log(`${guessALetter}`);
+    } else {
+      console.log(shrugman());
+      attempts++;
+    }
+    // guessALetter = checkLetters(letter);
+    // console.log(`${guessALetter}`);
+  }
+
+  if (correctLetters.length === secretWord.length) {
+    console.log(`\nCongratulations! You guessed the word: ${secretWord}`);
+    return;
+  } else {
+    console.log(`\nYou lose... The correct word: ${secretWord}`);
+  }
 }
-// guessALetter = checkLetters(letter);
-// console.log(`${guessALetter}`);
-}
-
-console.log(`\nCongratulations! You guessed the word: ${secretWord}`);
-};
 
 playGame();
