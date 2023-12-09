@@ -1,3 +1,8 @@
-# Under Construction 🚧
+# My JavaScript Final Project 3 🚀✨
 
-## Coming Soon 🔜
+## Welcome to my JavaScript project repository 👋
+
+### Shrugman 🤷🤷‍♂️🤷‍♀️ (Pair Work)
+
+
+### 🚧 Under Construction - Coming 🔜
