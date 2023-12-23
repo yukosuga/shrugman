@@ -45,16 +45,23 @@ function checkLetters(letter) {
 }
 
 function createWord() {
-  const characters = secretWord.split("");
-  return characters
-    .map((character) => {
-      if (correctLetters.includes(character)) {
-        return character;
+  let displayWordArray = [];
+  for (let i = 0; i < secretWord.length; i++) {
+    const character = secretWord[i];
+    if (correctLetters.includes(character)) {
+      if (
+        correctLetters.filter((char) => char === character).length >
+        displayWordArray.filter((char) => char === character).length
+      ) {
+        displayWordArray.push(character);
       } else {
-        return "_";
+        displayWordArray.push("_");
       }
-    })
-    .join("");
+    } else {
+      displayWordArray.push("_");
+    }
+  }
+  return displayWordArray.join("");
 }
 
 function shrugman() {
@@ -96,6 +103,9 @@ function playGame() {
       console.log(`${guessALetter}`);
     } else {
       console.log(shrugman());
+      console.log(
+        `Incorrect guess! Attempts left: ${totalAllowedAttempts - attempts - 1}`
+      );
       attempts++;
     }
     // guessALetter = checkLetters(letter);
@@ -104,7 +114,6 @@ function playGame() {
 
   if (correctLetters.length === secretWord.length) {
     console.log(`\nCongratulations! You guessed the word: ${secretWord}`);
-    return;
   } else {
     console.log(`\nYou lose... The correct word: ${secretWord}`);
   }
